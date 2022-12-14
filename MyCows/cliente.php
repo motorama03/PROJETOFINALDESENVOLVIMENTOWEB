@@ -33,19 +33,13 @@
     </style>
 </head>
 <body>
-    <form action="acaologin.php" method="post">
+    <form action="acaoCliente.php" method="post">
         <div class="inputbox">
-            <h1>Login</h1>
+            <h1>Cadastro!</h1>
             <label for="user">Usuário<br>
-            <input type="text" name="user" id="user"><br>
+            <input type="email" name="user" id="user" placeholder="user@gmail.com"><br>
             <label for="password">Senha<br>
             <input type="password" name="password" id="password"><br>
-            <button name="enviar" type="submit" value="enviar">Enviar</button>
+            <button name="enviar" type="submit" value="cadastrar">Cadastrar</button>
         </div>
     </form>
-        <div class="inputbox">
-            <?php
-                $cadastrar = "<a href='cliente.php?acao=cadastrar'>Cadastrar</a>";
-                echo "$cadastrar";
-            ?>
-        </div>
