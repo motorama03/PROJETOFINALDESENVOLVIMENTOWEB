@@ -3,6 +3,7 @@ session_start();
 include 'conexao.php';
 $user = isset($_POST['user'])?$_POST['user']:"";
 $password = isset($_POST['password'])?$_POST['password']:"";
+$passwordcry = md5($password);
 $acao = isset($_POST['enviar'])?$_POST['enviar']:"";
 print_r($acao); 
 
@@ -13,7 +14,7 @@ if($acao == 'enviar'){
     }
         $stmt = $conexao->prepare($query);
         $stmt ->bindValue(':user', $user);
-        $stmt->bindValue(':senha', $password);
+        $stmt->bindValue(':senha', $passwordcry);
 
         if($stmt->execute()){
             $usuario = $stmt->fetch();

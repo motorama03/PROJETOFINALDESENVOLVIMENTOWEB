@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body{
         font-family: Arial, Helvetica, sans-serif;
@@ -34,6 +35,7 @@
 </head>
 <body>
     <form action="acaoCliente.php" method="post">
+    <a href="login.php">Voltar</a> 
         <div class="inputbox">
             <h1>Cadastro!</h1>
             <label for="user">Usuário<br>

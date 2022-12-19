@@ -40,6 +40,7 @@
 
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -50,10 +51,11 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
-        <a class="nav-link" href="#"><span class="sr-only">Pesquisar</span></a>
+        <label for="">
+        <a class="nav-link" href="#"><span >Pesquisar</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Editar</a>
+        <a class="nav-link" href="edicao.php">Editar</a>
       </li>
       <!--<li class="nav-item">
         <a class="nav-link" href="#">Pricing</a>
