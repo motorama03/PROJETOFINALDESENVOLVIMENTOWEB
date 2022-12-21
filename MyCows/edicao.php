@@ -84,7 +84,7 @@
 <body>
     <seccion class="container">
     <a href="home.php">Página inicial</a> 
-        <form method="POST" id="form"><!-- action="acaoedicao.php" -->
+        <form method="POST" id="form" action="acaoedicao.php">
             <div class="inputbox">
                 <h5>Cadastro criação</h5><br>
                 <input readonly type="text" name="id" id="id" value=<?php if(isset($criacao))echo $criacao['id']; else echo 0 ?>><br>

@@ -31,17 +31,83 @@
         .errado{
             text-decoration: red;
         }
+        .span-required{
+            font-size: 12px;
+            margin: 3px 0 0 1px;
+            color: var(--color-red);
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <form action="acaoCliente.php" method="post">
+    <form action="acaoCliente.php" method="post" id="post">
     <a href="login.php">Voltar</a> 
         <div class="inputbox">
-            <h1>Cadastro!</h1>
+            <h1>Login</h1>
             <label for="user">Usuário<br>
-            <input type="email" name="user" id="user" placeholder="user@gmail.com"><br>
+            <input type="text" name="user" id="user" class="required" oninput="validaUsuario()"><br>
+            <span class="span-required">Usuário inválido!</span>
             <label for="password">Senha<br>
-            <input type="password" name="password" id="password"><br>
-            <button name="enviar" type="submit" value="cadastrar">Cadastrar</button>
+            <input type="password" name="password" id="password" class="required" oninput="validaSenha()"><br>
+            <span class="span-required">Senha inválida!</span>
+            <button name="enviar" type="submit" value="enviar">Enviar</button>
         </div>
     </form>
+        <div class="inputbox">
+            <?php
+                $cadastrar = "<a href='cliente.php?acao=cadastrar'>Cadastrar</a>";
+                echo "$cadastrar";
+            ?>
+        </div>
+</body>
+<script>
+    const form = document.getElementById('form');
+    const campos = document.querySelectorAll('.required');
+    const spans = document.querySelectorAll('.span-required');
+
+    function validaUsuario(){
+        if(campos[0].value.length < 3){
+            setError(0);
+            return false;
+            setError(0);
+        }
+        else{
+            removeError(0);
+        }
+        removeError(0);
+        return true;
+    }
+
+    function validaSenha(){
+        if(campos[1].value.length < 8){
+            setError(1);
+            return false;
+            setError(1);
+        }
+        else{
+            removeError(1);
+            return true;
+        }
+    }
+
+    function removeError(index){
+        if(!index && index != 0)
+        {
+            for(var i = 0; i < campos.length-1; i++)
+            {
+                campos[i].style.border = '';
+                spans[i].style.display = 'none';
+            }
+        }
+        else
+        {
+            campos[index].style.border = '';
+            spans[index].style.display = 'none';
+        }
+        campos[index].style.border = '';
+        spans[index].style.display = 'none';
+    }
+    function setError(index){
+        campos[index].style.border = '2px solid #e63636';
+        spans[index].style.display = 'block';
+    }

@@ -27,6 +27,7 @@
             header('location: edicao.php');
         }
     }
+    print_r($acao);
     if($acao = 'editar' && $id > 0){
         $id = isset($_POST['id'])?$_POST['id']:0;
         $nome = isset($_POST['cNome'])?$_POST['cNome']:"";
@@ -38,8 +39,8 @@
 
             $stmt = $conexao->prepare($query);
             $stmt->bindValue(':id', $id);
-            $stmt->bindValue(':nome', $nome);
-            $stmt->bindValue(':codbrinco', $brinco); 
+            $stmt->bindValue(':nome', $cowname);
+            $stmt->bindValue(':codbrinco', $cowcod); 
 
             $stmt->execute();
             header('location: edicao.php');
