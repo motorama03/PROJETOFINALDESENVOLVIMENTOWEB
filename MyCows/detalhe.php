@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
     include_once 'conf.inc.php';
     $id = isset($_GET['id'])?$_GET['id']:"";
@@ -11,7 +12,7 @@
             // cria a conexão com o banco de dados 
             $conexao = new PDO(MYSQL_DSN,DB_USER,DB_PASSWORD);
             // montar consulta
-            $query = 'SELECT * FROM registro.criacao WHERE id = :id' ;
+            $query = 'SELECT * FROM registro.dadoscriacao WHERE id = :id' ;
             // preparar consulta
             $stmt = $conexao->prepare($query);
             // vincular variaveis com a consult
@@ -28,9 +29,6 @@
         }  
     }
 ?>
-
-<!DOCTYPE html>
-
 
 
 <style>
@@ -75,7 +73,6 @@
             color: var(--color-red);
             display: none;
         }
-        
 </style>
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -83,48 +80,68 @@
 </head>
 <body>
     <seccion class="container">
-    <a href="home.php">Página inicial</a> 
-        <form method="POST" id="form"><!-- action="acaoedicao.php" -->
+        <a href="home.php">Página inicial</a> 
+        <form action="acaodetalhe.php" method="POST">
             <div class="inputbox">
                 <h5>Cadastro criação</h5><br>
-                <input readonly type="text" name="id" id="id" value=<?php if(isset($criacao))echo $criacao['id']; else echo 0 ?>><br>
-                <label for="cNome">Informe o nome da vaca!</label><br>
-                <input name="cNome" type="text" id="cNome" placeholder="CowName" class="required" oninput="validaNome()" value=<?php if(isset($criacao))echo $criacao['nome'] ?>><br>
-                <span class="span-required">Nome Inválido</span>
-                <label for="cCod">Informe o código do brinco</label><br>
-                <input name="cCod" type="number" id="cCod" placeholder="Código brinco" class="required" oninput="validaCodigo()" value=<?php if(isset($criacao))echo $criacao['codbrinco'] ?>><br><br>
-                <span class="span-required">Código do brinco inválido!</span>
+                <input readonly type="text" name="id" id="id" value=<?php if(isset($criacao))echo $criacao['id']; else echo 0 ?> ><br>
+                <label for="cCod">Informe o código do brinco </label><br>
+                <input name="cCod" type="number" id="cCod" placeholder="Código brinco" class="required" oninput="validaCodigo()" value=<?php if(isset($criacao))echo $criacao['codbrinco'] ?>><br>
+                <span class="span-required">Código inválido!</span>
+                <label for="cDataCio">Informe a data do próximo cio!</label><br>
+                <input name="cDataCio" type="text" id="cDataCio" placeholder="Data próximo cio" class="required" oninput="validaCio()" value=<?php if(isset($criacao))echo $criacao['dataCio'] ?>><br>
+                <span class="span-required">Data do próximo cio inválida</span>
+                <label for="cDataCria">Informe a data da próxima cria!</label><br>
+                <input name="cDataCria" type="text" id="cDataCria" placeholder="Data da próxima cria" class="required" oninput="validaCria()" value=<?php if(isset($criacao))echo $criacao['dataCria'] ?>><br><br>
+                <span class="span-required">Data da próxima cria</span>
                 <input type="submit" name="acao" value="salvar"><br>
             </div>
         </form>
     </seccion>
 </body>
 <script>
+    function excluir(url){
+        if (confirm("Deseja Excluir?"))
+            window.location.href = url;
+    }
     const form = document.getElementById('form');
     const campos = document.querySelectorAll('.required');
     const spans = document.querySelectorAll('.span-required');
 
-    function validaNome(){
-        if(campos[0].value.length < 3){
-            setError(0);
-            return false;
-            setError(0);
-        }
-        else{
-            removeError(0);
-        }
-        removeError(0);
-        return true;
-    }
-
-    function validaCodigo(){
-        if(campos[1].value.length < 8){
+    function validaCio(){
+        if(campos[1].value.length != 10){
             setError(1);
             return false;
             setError(1);
         }
         else{
             removeError(1);
+        }
+        removeError(1);
+        return true;
+    }
+
+    function validaCio(){
+        if(campos[2].value.length != 10){
+            setError(2);
+            return false;
+            setError(2);
+        }
+        else{
+            removeError(2);
+        }
+        removeError(2);
+        return true;
+    }
+
+    function validaCodigo(){
+        if(campos[0].value.length < 8){
+            setError(0);
+            return false;
+            setError(0);
+        }
+        else{
+            removeError(0);
             return true;
         }
     }
@@ -150,13 +167,11 @@
         campos[index].style.border = '2px solid #e63636';
         spans[index].style.display = 'block';
     }
-
-
 </script>
 <?php
     $conexao = new PDO(MYSQL_DSN,DB_USER,DB_PASSWORD);
     $busca = isset($_POST['busca'])?$_POST['busca']:"";
-    $query = 'SELECT * FROM registro.criacao';
+    $query = 'SELECT * FROM registro.dadoscriacao';
 
     $stmt = $conexao->prepare($query);
     $stmt->execute();
@@ -164,17 +179,17 @@
 
     echo '<table class="table">';
     echo'   <tr>
-                <th>ID</th><th>nomeDaVaca</th><th>códigoDoBrinco</th><th>Edit</th><th>Del</th>
+                <th>ID</th><th>CódigoDoBrinco</th><th>DataPróximoCio</th><th>DataPróximaCria</th><th>Edit</th><th>Del</th>
             </tr>';
     foreach($listacriacao as $criacao){
-        $editar = '<a href=edicao.php?acao=editar&id='.$criacao['id'].'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+        $editar = '<a href=detalhe.php?acao=editar&id='.$criacao['id'].'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
         <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
         </svg> </a>';
-        $excluir = '<a href=acaoEdicao.php?acao=excluir&id='.$criacao['id'].'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-        </svg></a>';
+        $excluir = "<a href='acaoDetalhe.php?acaoDetalhe.php?acao=excluir&id={$criacao['id']}')><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
+        <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
+        </svg></a>";
         echo "<tr>";
-        echo "<td>".$criacao['id']."</td><td>".$criacao['nome']."</td><td>".$criacao['codbrinco']."</td><td>".$editar."</td><td>".$excluir."</td>";
+        echo "<td>".$criacao['id']."</td><td>".$criacao['codbrinco']."</td><td>".$criacao['dataCio']."</td><td>".$criacao['dataCria']."</td><td>".$editar."</td><td>".$excluir."</td>";
         echo "</tr>";
     }
     echo "</table";

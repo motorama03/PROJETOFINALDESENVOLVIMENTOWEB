@@ -7,6 +7,8 @@ $passwordcry = md5($password);
 $acao = isset($_POST['enviar'])?$_POST['enviar']:"";
 print_r($acao); 
 
+
+
 if($acao == 'enviar'){
     if($user != "" && $password != ""){
         $query = "SELECT * FROM usuario

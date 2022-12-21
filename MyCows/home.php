@@ -52,10 +52,13 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
         <label for="">
-        <a class="nav-link" href="#"><span >Pesquisar</span></a>
+        <a class="nav-link" href="pesquisa.php"><span >Tabela de dados</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="edicao.php">Editar</a>
+        <a class="nav-link" href="edicao.php">Cadastrar Vacas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="detalhe.php">Especificações bovinas</a>
       </li>
       <!--<li class="nav-item">
         <a class="nav-link" href="#">Pricing</a>
