@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php
+
+    date_default_timezone_set('America/Sao_Paulo');
+
     include_once 'conf.inc.php';
     $id = isset($_GET['id'])?$_GET['id']:"";
     $acao = isset($_GET['acao'])?$_GET['acao']:"";
@@ -75,8 +78,8 @@
         }
 </style>
 <head>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <seccion class="container">
@@ -89,10 +92,10 @@
                 <input name="cCod" type="number" id="cCod" placeholder="Código brinco" class="required" oninput="validaCodigo()" value=<?php if(isset($criacao))echo $criacao['codbrinco'] ?>><br>
                 <span class="span-required">Código inválido!</span>
                 <label for="cDataCio">Informe a data do próximo cio!</label><br>
-                <input name="cDataCio" type="text" id="cDataCio" placeholder="Data próximo cio" class="required" oninput="validaCio()" value=<?php if(isset($criacao))echo $criacao['dataCio'] ?>><br>
+                <input name="cDataCio" type="date" id="cDataCio" placeholder="Data próximo cio" class="required" oninput="validaCio()" value=<?php if(isset($criacao))echo $criacao['dataCio'] ?>><br>
                 <span class="span-required">Data do próximo cio inválida</span>
                 <label for="cDataCria">Informe a data da próxima cria!</label><br>
-                <input name="cDataCria" type="text" id="cDataCria" placeholder="Data da próxima cria" class="required" oninput="validaCria()" value=<?php if(isset($criacao))echo $criacao['dataCria'] ?>><br><br>
+                <input name="cDataCria" type="date" id="cDataCria" placeholder="Data da próxima cria" class="required" oninput="validaCria()" value=<?php if(isset($criacao))echo $criacao['dataCria'] ?>><br><br>
                 <span class="span-required">Data da próxima cria</span>
                 <input type="submit" name="acao" value="salvar"><br>
             </div>

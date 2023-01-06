@@ -156,7 +156,7 @@
 <?php
     $conexao = new PDO(MYSQL_DSN,DB_USER,DB_PASSWORD);
     $busca = isset($_POST['busca'])?$_POST['busca']:"";
-    $query = 'SELECT * FROM registro.criacao';
+    $query = 'SELECT * FROM registro.criacao order by id';
 
     $stmt = $conexao->prepare($query);
     $stmt->execute();

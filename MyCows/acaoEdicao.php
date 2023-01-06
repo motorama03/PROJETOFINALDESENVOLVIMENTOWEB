@@ -21,9 +21,10 @@
             if($criacao){
                 $_SESSION['registro'] = $criacao[''];
                 $_SESSION['id_registro'] = $criacao['id'];
-                echo $_SESSION['criacao'];
                 header('location: edicao.php');
             }
+            $cowname = "";
+            $cowcod = 0;
             header('location: edicao.php');
         }
     }

@@ -1,9 +1,9 @@
 <?php
     session_start();
     include 'conexao.php';
-    $cowdatacio = isset($_POST['cDataCio'])?$_POST['cDataCio']:"";
+    $cowdatacio = isset($_POST['cDataCio'])?$_POST['cDataCio']:0;
     $cowcod = isset($_POST['cCod'])?$_POST['cCod']:"";
-    $cowdatacria = isset($_POST['cDataCria'])?$_POST['cDataCria']:"";
+    $cowdatacria = isset($_POST['cDataCria'])?$_POST['cDataCria']:0;
     $acao = isset($_POST['enviar'])?$_POST['enviar']:"";
     $id = isset($_POST['id'])?$_POST['id']:"";
     print_r($id."<br>");

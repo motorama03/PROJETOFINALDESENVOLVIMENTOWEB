@@ -43,7 +43,7 @@
     <form action="acaoCliente.php" method="post" id="post">
     <a href="login.php">Voltar</a> 
         <div class="inputbox">
-            <h1>Login</h1>
+            <h1>Registration</h1>
             <label for="user">Usuário<br>
             <input type="text" name="user" id="user" class="required" oninput="validaUsuario()"><br>
             <span class="span-required">Usuário inválido!</span>

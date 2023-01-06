@@ -11,21 +11,22 @@ delete from registro.usuario where id = 1;
 create table criacao(
 	`id` int unique auto_increment not null,
 	`nome` varchar(45) not null,
-	`codbrinco` int not null unique,
+	`codbrinco` varchar(20) not null unique,
 	primary key (codbrinco)
 );
 
-select * from registro.criacao;
+select * from registro.criacao 
+full join registro.dadoscriacao 
+on criacao.codbrinco = dadoscriacao.codbrinco;
 
 DELETE FROM criacao WHERE id = 6;
 
 create table dadoscriacao(
 	`id` int unique auto_increment not null,
-	`codbrinco` int not null unique,
+	`codbrinco` varchar(20) not null unique,
 	`dataCio` varchar(10),
 	`dataCria` varchar(10),
-	foreign key (codbrinco) references criacao(codbrinco)
-);
+	foreign key (codbrinco) references criacao(codbrinco));
 
 INSERT INTO dadoscriacao (codbrinco, dataCio, dataCria) values (1213123123, '12/09/2022', '04/12/2011');
 
